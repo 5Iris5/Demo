@@ -123,8 +123,7 @@ header::before{
     border:5px solid #f1f1f1;
     transition:transform 0.2s linear;
 }
-.section_about div ul li img,
-.section_about div ul li .img:hover{
+.section_about div ul li img:hover{
     transform:rotate(360deg) scale(0.8);
 }
 .section_about div ul li .img span{
