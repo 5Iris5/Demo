@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>selectors</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<style>
+	    *{
+	    	box-sizing:border-box;
+	    }
+	    .model-tab{
+	    	margin-top:30px;
+	    }
+		.model-tab .tab{
+			float:left;
+			border-left:1px solid #ccc;
+			border-top:1px solid #ccc;
+			padding:5px 20px;
+			background:#ddd;
+			cursor:pointer;
+		}
+		/**一定要记得清除浮动，否则浮动元素会影响前后元素**/
+		.model-tab .header{
+			overflow:auto;
+		}
+		.model-tab .tab:last-child{
+			border-right:1px solid #ccc;
+		}
+		.model-tab .tab.active{
+			background:#fff;
+		}
+		.model-tab .content{
+			width:300px;
+			height:200px;
+			border:1px solid #ccc;
+			background:#fff;
+		}
+		.model-tab .pannel{
+			padding:30px;
+			background:#fff;
+			display:none;
+		}
+		.model-tab .pannel.active{
+			display:block;
+		}
+	</style>
+</head>
+<body>
+	<div class="model-tab">
+		<div class="header">
+			<div class="tab active">1</div>
+			<div class="tab">2</div>
+			<div class="tab">3</div>
+			<div class="tab">4</div>
+			<div class="tab">5</div>
+		</div>
+		<div class="content">
+			<div class="pannel active">pannel1</div>
+			<div class="pannel">pannel2</div>
+			<div class="pannel">pannel3</div>
+			<div class="pannel">pannel4</div>
+			<div class="pannel">pannel5</div>
+		</div>
+	</div>
+	<div class="model-tab">
+		<div class="header">
+			<div class="tab active">1</div>
+			<div class="tab">2</div>
+			<div class="tab">3</div>
+			<div class="tab">4</div>
+			<div class="tab">5</div>
+		</div>
+		<div class="content">
+			<div class="pannel active">pannel1</div>
+			<div class="pannel">pannel2</div>
+			<div class="pannel">pannel3</div>
+			<div class="pannel">pannel4</div>
+			<div class="pannel">pannel5</div>
+		</div>
+	</div>
+	<script>
+		$('.model-tab .tab').on('click', function(){
+			$(this).addClass('active')
+			       .siblings()
+			       .removeClass('active')
+			$(this).parents('.model-tab').find('.pannel')
+			       .eq($(this).index())
+			       .addClass('active')
+			       .siblings()
+			       .removeClass('active')
+		})
+	</script>
+</body>
+</html>
