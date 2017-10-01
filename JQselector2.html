@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>selectors</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<style>
+	    *{
+	    	box-sizing:border-box;
+	    }
+	    .model-tab{
+	    	margin-top:30px;
+	    }
+		.model-tab .tab{
+			float:left;
+			border-left:1px solid #ccc;
+			border-top:1px solid #ccc;
+			padding:5px 20px;
+			background:#ddd;
+			cursor:pointer;
+		}
+		/**一定要记得清除浮动，否则浮动元素会影响前后元素**/
+		.model-tab .header::after{
+			content:'';
+			display:block;
+			clear:both;
+		}
+		.model-tab .tab:last-child{
+			border-right:1px solid #ccc;
+		}
+		.model-tab .tab.active{
+			background:#fff;
+		}
+		.model-tab .content{
+			width:300px;
+			height:200px;
+			border:1px solid #ccc;
+			background:#fff;
+		}
+		.model-tab .pannel{
+			padding:30px;
+			background:#fff;
+			display:none;
+		}
+		.model-tab .pannel.active{
+			display:block;
+		}
+	</style>
+</head>
+<body>
+	<div class="model-tab">
+		<div class="header">
+			<div class="tab active">1</div>
+			<div class="tab">2</div>
+			<div class="tab">3</div>
+			<div class="tab">4</div>
+			<div class="tab">5</div>
+		</div>
+		<div class="content">
+			<div class="pannel active">pannel1</div>
+			<div class="pannel">pannel2</div>
+			<div class="pannel">pannel3</div>
+			<div class="pannel">pannel4</div>
+			<div class="pannel">pannel5</div>
+		</div>
+	</div>
+	<div class="model-tab">
+		<div class="header">
+			<div class="tab active">1</div>
+			<div class="tab">2</div>
+			<div class="tab">3</div>
+			<div class="tab">4</div>
+			<div class="tab">5</div>
+		</div>
+		<div class="content">
+			<div class="pannel active">pannel1</div>
+			<div class="pannel">pannel2</div>
+			<div class="pannel">pannel3</div>
+			<div class="pannel">pannel4</div>
+			<div class="pannel">pannel5</div>
+		</div>
+	</div>
+	<script>
+		document.querySelectorAll('.model-tab .tab').forEach(function(node){
+			node.addEventListener('click',function(){
+				var index
+				this.parentElement.querySelectorAll('.tab').forEach(function(tab,idx){
+					tab.classList.remove('active')
+					/**如果点击的node与当前遍历的tab相等的话，将当前遍历的tab的索引值idx赋值给index**/
+					if(node === tab){
+						index = idx
+					}
+				})
+				this.classList.add('active')
+
+				this.parentElement.nextElementSibling.querySelectorAll('.pannel').forEach(function(pannel){
+					pannel.classList.remove('active')
+				})
+				this.parentElement.nextElementSibling.querySelectorAll('.pannel')[index].classList.add('active')
+			})
+		})
+	</script>
+</body>
+</html>
