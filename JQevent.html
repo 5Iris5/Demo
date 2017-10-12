@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+  <meta charset="utf-8">
+  <title>绑定事件</title>
+</head>
+<body>
+<div class="box">
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+  </ul>
+</div>
+<input id="ipt" type="text"> <button id="btn">添加</button>
+<div id="wrap">
+</div>
+
+<script>
+
+  //选择li，让wrap里面展示li的内容
+  $('.box li').on('click', function(){  //绑定事件的时候'click'是我们的事件
+    console.log(1)
+    var str = $(this).text()  //获取点击的元素里的内容将其赋值给str
+    $('#wrap').text(str)   //选择wrap设置里面的内容为str(即获取点击的元素里的内容)
+  })
+
+
+
+  //等同于
+  $('.box>ul>li').click(function(){
+    console.log(2)
+    var str = $(this).text()
+    $('#wrap').text(str)
+  })
+
+
+
+  //也可以这样写
+  $('.box li').on('click.hello',function(){  //上面绑定事件的时候'click'是我们的事件，有时候"click"的后面可以加个东西，形如："click.hello"，后面加的.hello叫做事件的命名空间,实际上这样的写法在功能上来说与不加的写法功能一样，都是为了给li绑定一个叫click的事件。那它有什么用呢？解绑事件的时候有用(在解绑事件时便于区分绑定的事件)！看下个例子
+    console.log(3)
+    var str = $(this).text()
+    $('#wrap').text(str)
+  })
+
+
+
+//比如说现在绑定了两次，一次是on('click'),一次是on('click.hello'),那当我去点击li的时候,这两次的绑定都有作用(也就是说都会执行)
+  $('.box li').on('click',function(){
+    console.log(1)
+    var str = $(this).text()
+    $('#wrap').text(str)
+  })
+  $('.box li').on('click.hello',function(){
+    console.log(3)
+    var str = $(this).text()
+    $('#wrap').text(str)
+  })
+//现在我想去解绑事件，让'click.hello'不执行，另一个没有影响 
+  $('.box li').off('click.hello')
+//解绑事件的时候，如果我写成$('.box li').off('click')，那把所有的click事件（也就是把这两个）都解绑掉了
+
+
+
+  $('.box li').on('click',function(){
+    console.log(1)
+    var str = $(this).text()
+    $('#wrap').text(str)
+  })
+  //在input里面输入文本，将其添加到li，如下这个方法可以实现此功能，但是新增的li没有绑定事件 
+  $('#btn').on('click',function(){
+    var value = $('#ipt').val() //获取用户在input里输入的val()即内容，将其赋值给value
+    $('.box ul').append('<li>'+value+'</li>') //字符串拼接,把这个value的html添加到ul的尾部
+  })
+
+  //我们可以用事件代理给新添加的li绑定事件
+  $('.box ul').on('click',"li",function(){  //给ul绑定事件click,这里的li代表唯一研究的是li
+    console.log(9)  //点新添加的li元素时在Console面板展示9，点击之前的已绑定的元素时同时在Console面板展现1,9
+    var str = $(this).text()    //注意：this在JQ里面代表你所点击的li，而在JS里面代表前面的$('.box ul')
+    $('#wrap').text(str)
+  })
+
+  /* //上面事件代理下的代码相当于原生js的
+  document.querySelector('.box ul').addEventListener('click',function(e){
+    if(e.target.tagName.toLowerCase() === 'li'){
+      //do something
+    }
+  }) */
+
+  //绑定事件的时候也可以给事件附带些数据，不过这种用法比较少见
+  $('.box ul').on('click','li',{name:"Iris"},function(e){
+    console.log(e.data)   //e.date代表我们传递的数据 （点新添加的li元素时在Console面板展示[object Object] {name: "Iris"}，点击之前的已绑定的元素时同时在Console面板展现1,[object Object] {name: "Iris"}）
+    var str = $(this).text()
+    $('#wrap').text(str)
+  })
+
+
+
+  //one绑定事件，只执行一次  
+   $('.box ul').one('myclick','li',{name:"Iris"},function(e){
+    console.log(e.data)
+    var str = $(this).text()
+    $('#wrap').text(str)
+  })
+   //trigger触发事件并不一定是浏览器默认事件可以是自定义事件
+   setTimeout(function(){
+              $('.box li').eq(2).trigger('myclick')
+              }, 3000)  //不需要点击li，浏览器3秒后自动输出回调函数中传入的数据
+
+</script>
+</body>
+</html>
