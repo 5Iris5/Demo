@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义动画</title>
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<style>
+	    .container{
+	    	position:relative;
+	    }
+		.box{
+			position:absolute;
+			border:1px solid #bff;
+			width:80px;
+			height:80px;
+			background:yellow;
+		}
+	</style>
+</head>
+<body>
+	<button id="btn1">start</button>
+	<button id="btn2">step+50</button>
+	<button id="btn3">step-50</button>
+	<button id="btn4">auto</button>
+	<button id="btn5">reset</button>
+	<button id="btn6">clearQueue</button>
+	<button id="btn7">stop(false,false)</button>
+	<button id="btn8">stop(true,false)</button>
+	<button id="btn9">stop(true,true)</button>
+	<button id="btn10">finish</button>
+	<button id="btn11">紧急执行</button>
+	<div class="container">
+		<div class="box"></div>
+	</div>
+
+	<script>
+		$('#btn1').click(function(){
+			$('.box').animate({
+				opacity:0.3,
+				left:100,
+				top:80,
+				height:20,
+				width:20
+			}, 1000)
+		})
+		$('#btn2').click(function(){
+			$('.box').animate({
+			    left: '+=50'  //在原来的基础上加50
+			}, 'slow')
+		})
+		$('#btn3').click(function(){
+			$('.box').animate({
+				left: '-=50'  //在原来的基础上减50
+			}, 'fast')
+		})
+		$('#btn4').click(function(){  //自定义动画队列，除第一个$('.box')必须有外，其他可省
+			$('.box').animate({
+				opacity:1,
+				height:50,
+				width:50,
+				left:100,
+				top:0
+			}, 1000)
+			$('.box').animate({
+				left:100,
+				top:100
+			}, 1000)
+			$('.box').animate({
+				left:0,
+				top:100
+			}, 1000)
+			$('.box').animate({
+				left:0,
+				top:0
+			}, 1000)
+		})
+		$('#btn5').click(function(){
+			$('.box').animate({
+				left:0,
+				top:0
+			}, 'fast')
+		})
+		$('#btn6').click(function(){
+			//将当前动画执行完毕后（展示当前动画最后一帧的状态）清除后面的动画队列
+			$('.box').clearQueue()
+		}, 3000)
+		$('#btn7').click(function(){
+			//停止当前正在执行的动画，立刻执行后面的动画队列
+			$('.box').stop()
+		})
+		$('#btn8').click(function(){
+			//停止当前动画，后面的动画队列也不执行（停止当前动画，并清除后面未执行的动画队列）
+			$('.box').stop(true,false)
+		})
+		$('#btn9').click(function(){
+			//停止当前动画并直接跳到当前动画的最后一帧，后面的动画队列不再执行
+			$('.box').stop(true,true)
+		})
+		$('#btn10').click(function(){
+			//停止当前动画，并清除后面未执行的动画队列同时直接跳到整个动画队列的最后一帧
+			$('.box').finish()
+		})
+		//点击紧急执行时，不管中间有多少动画，都立即停掉，立即执行紧急执行的动画
+		$('#btn11').click(function(){
+			$('.box').animate({
+				opacity:0.5,
+				left:50,
+				top:0           //修改了最后一帧的状态，最后一帧的起点变为50,0
+			}, '2000').finish().animate({
+				left:200,
+				top:300
+			}, 'slow', function(){
+				$('.box').animate({
+					width:20,
+					height:50,
+					top:50,
+					left:200
+				}, 3000)
+				console.log('这里是回调函数？到底什么是回调函数呢？此处是同步还是异步？待解决！')
+			})
+		})               //浏览器不管你在哪儿加动画，加一个就多一个，不管你是从哪来的，.finish()只看他前面是谁，前面是谁谁就是最后一帧
+	</script>
+</body>
+</html>
