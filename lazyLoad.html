@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<meta charset="UTF-8">
+	<title>图片懒加载</title>
+	<style>
+	    .container{
+	    	max-width: 800px;
+	    	margin:10px auto;
+	    }
+		img{
+			width:280px;
+			height:250px;  /*初始高宽占位，以免影响布局。如果是响应式页面，高宽需要动态计算。*/
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<img src="img/02.gif" alt="" data-src="img/03.jpg">
+		<img src="img/02.gif" alt="" data-src="img/04.jpg">
+		<img src="img/02.gif" alt="" data-src="img/05.jpg">
+		<img src="img/02.gif" alt="" data-src="img/06.jpg">
+		<img src="img/02.gif" alt="" data-src="img/07.jpg">
+		<img src="img/02.gif" alt="" data-src="img/08.jpg">
+		<!-- <h1>小姐姐好漂亮哈哈哈哈哈哈哈哈</h1> 可以用来测试图片中的几个高度值 -->
+		<img src="img/02.gif" alt="" data-src="img/09.jpg">
+		<img src="img/02.gif" alt="" data-src="img/10.jpg">
+		<img src="img/02.gif" alt="" data-src="img/11.jpeg">
+		<img src="img/02.gif" alt="" data-src="img/12.jpg">
+		<img src="img/02.gif" alt="" data-src="img/13.jpg">
+		<img src="img/02.gif" alt="" data-src="img/14.jpg">
+		<img src="img/02.gif" alt="" data-src="img/15.jpg">
+	</div>
+	<script>
+		//用户一开始进来的时候就进行一次是否出现在可视窗口的判断
+		start()
+
+		//滚动页面再进行判断
+		$(window).on('scroll',function(){
+			start()
+		})
+
+		//封装
+		function start(){
+			$('.container img').not('data-isLoaded').each(function(){  //图片单个判断，但是过滤掉标记为data-isLoaded的图片  [$('E:not(selector)')---按照selector过滤E]
+				var $node = $(this)
+				if (isShow($node)){    //如果图片出现在可视区
+					setTimeout(function(){     //延时效果（尽量不要加，这里是为了更好的看到效果）
+						loadImg($node) //出现则加载它
+					},800)
+				}
+			})
+		}
+
+		//判断一个元素是否出现在可视窗口
+		function isShow($node){
+			return $(window).height() + $(window).scrollTop() >= $node.offset().top
+		}
+
+		//加载图片
+		function loadImg($img){
+			$img.attr('src', $img.attr('data-src'))  //把data-src的值赋值给img的src (一个参数：获取该参数的值；两个参数：给该参数增加一个属性)
+			$img.attr('data-isLoaded',true)   //给img加个属性，随便加什么，目的是为了标记，当用户在滚动时判断图片是否已经加载，若加载了，就不在加载(相当于设置一个变量为false，当图片加载了就设置为true，每次加载图片的时候都判断这个变量，若它为true，就不再加载，若它为false，就继续加载，这样是为了防止多次加载，然后其实就相当于把这个变量设置到img这个对象上了，你可这样想:window.isLoad  ->img.isLoad)
+		}
+	</script>
+</body>
+</html>

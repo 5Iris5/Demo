@@ -1,11 +1,11 @@
-function $(selector){
+
+$$('.model .login').forEachfunction $(selector){
      return document.querySelector(selector)
 }
 //实现切换功能
 function $$(selector){
         return document.querySelectorAll(selector)
-}
-$$('.model .login').forEach(function(node){
+}(function(node){
      node.onclick = function(){
             $('.flip-model').classList.remove('register')
             $('.flip-model').classList.add('login')
@@ -61,7 +61,7 @@ document.addEventListener('click',function(){
 $('.model-login form').addEventListener('submit',function(e){
                 e.preventDefault() //阻止表单自动提交
                 if(!/^\w{3,8}$/.test($('.model-login input[name="username"]').value)){
-                        $('.model-login.errormsg').innerText = '用户名需输入3-8个字符，包括字母数字下划线'
+                        $('.model-login .errormsg').innerText = '用户名需输入3-8个字符，包括字母数字下划线'
                         return false
                 }
                 if(!/^\w{6,10}$/.test($('.model-login input[name="password"]').value)){
@@ -71,22 +71,22 @@ $('.model-login form').addEventListener('submit',function(e){
                 this.submit()
         })
 $('.model-register form').addEventListener('submit',function(e){
-       e.preventDefault()
-       if(!/^\w{3,8}$/.test($('.model-register input[name="username"]').value)){
-              $('.model-register .errormsg').innerText = '用户名需输入3-8个字符，包括字母数字下划线'
-              return false
-      }
-      if(!/^Iris$|^Long$/.test($('.model-register input[name="username"]').value)){
-              $('.medol-register .errormsg').innerText = '用户名已存在'
-              return false
-      }
-      if(!/^w{6,10}$/.test($('.model-register input[name="password"]').value)){
-              $('model-register .errormsg').innerText = '密码需输入6-10个字符，包括字母数字下划线'
-              return false
-      }
-      if($('.model-register input[name="password"]').value !==$('.model-register input[name="password2"]').value){
-              $('model-register .errormsg').innerText = '两次密码输入不一致，请重新输入'
-              return false
-      }
-      this.submit()
-})
+               e.preventDefault()
+               if(!/^\w{3,8}$/.test($('.model-register input[name="username"]').value)){
+                      $('.model-register .errormsg').innerText = '用户名需输入3-8个字符，包括字母数字下划线'
+                      return false
+              }
+              if(!/^Iris$|^Long$/.test($('.model-register input[name="username"]').value)){
+                      $('.medol-register .errormsg').innerText = '用户名已存在'
+                      return false
+              }
+              if(!/^w{6,10}$/.test($('.model-register input[name="password"]').value)){
+                      $('model-register .errormsg').innerText = '密码需输入6-10个字符，包括字母数字下划线'
+                      return false
+              }
+              if($('.model-register input[name="password"]').value !==$('.model-register input[name="password2"]').value){
+                      $('model-register .errormsg').innerText = '两次密码输入不一致，请重新输入'
+                      return false
+              }
+              this.submit()
+        })
