@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<meta charset="UTF-8">
+	<title>JQ瀑布流布局</title>
+	<style>
+		.container{
+			width:560px;
+			margin:0px auto;
+		}
+		.container img{
+			position:absolute;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<img src="http://via.placeholder.com/100x100" alt="100*100">
+		<img src="http://via.placeholder.com/100x120" alt="100*120">
+		<img src="http://via.placeholder.com/100x80" alt="100*80">
+		<img src="http://via.placeholder.com/100x150" alt="100*150">
+		<img src="http://via.placeholder.com/100x100" alt="100*100">
+		<img src="http://via.placeholder.com/100x120" alt="100*120">
+		<img src="http://via.placeholder.com/100x80" alt="100*80">
+		<img src="http://via.placeholder.com/100x150" alt="100*150">
+		<img src="http://via.placeholder.com/100x100" alt="100*100">
+		<img src="http://via.placeholder.com/100x120" alt="100*120">
+		<img src="http://via.placeholder.com/100x80" alt="100*80">
+		<img src="http://via.placeholder.com/100x150" alt="100*150">
+		<img src="http://via.placeholder.com/100x100" alt="100*100">
+		<img src="http://via.placeholder.com/100x120" alt="100*120">
+		<img src="http://via.placeholder.com/100x80" alt="100*80">
+		<img src="http://via.placeholder.com/100x150" alt="100*150">
+		<img src="http://via.placeholder.com/100x100" alt="100*100">
+		<img src="http://via.placeholder.com/100x120" alt="100*120">
+		<img src="http://via.placeholder.com/100x80" alt="100*80">
+		<img src="http://via.placeholder.com/100x150" alt="100*150">
+	</div>
+	<script>
+		var colCount
+		var colHeightArray = []
+		var imgWidth = $('.container img').outerWidth(true)
+		colCount = Math.floor( $('.container').width()/imgWidth )
+		console.log(colCount)
+		for(var i=0; i<colCount; i++){
+			colHeightArray[i] = 0
+		}
+		//[0 ,0 ,0]
+		$('.container img').on('load',function() {
+			var minValue = colHeightArray[0]
+		    var minIndex = 0
+			for(var i=0; i<colCount; i++) {
+				if(colHeightArray[i] < minValue) {
+					minValue = ColHeightArray[i]
+					minIndex = i
+				}
+			}
+			//排版
+			$(this).css({
+				left: minIndex * imgWidth,
+				top: minValue
+			})
+			//console.log($(this).outerHeight(true))
+			colHeightArray[minIndex] += $(this).outerHeight(true)
+			//console.log(ColHeightArray)
+		})
+		//console.log($('.container img').eq(3).height())
+	</script>
+</body>
+</html>
