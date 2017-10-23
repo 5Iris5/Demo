@@ -3,14 +3,16 @@
 <head>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<meta charset="UTF-8">
-	<title>JQ瀑布流布局</title>
+	<title>waterfall</title>
 	<style>
 		.container{
+			position:relative;
 			width:560px;
 			margin:0px auto;
 		}
 		.container img{
 			position:absolute;
+			margin:10px 0px 0px 10px;
 		}
 	</style>
 </head>
@@ -39,33 +41,33 @@
 	</div>
 	<script>
 		var colCount
-		var colHeightArray = []
+		var hArr = []
 		var imgWidth = $('.container img').outerWidth(true)
 		colCount = Math.floor( $('.container').width()/imgWidth )
 		console.log(colCount)
+
 		for(var i=0; i<colCount; i++){
-			colHeightArray[i] = 0
+			hArr[i] = 0
 		}
 		//[0 ,0 ,0]
 		$('.container img').on('load',function() {
-			var minValue = colHeightArray[0]
+			var minValue = hArr[0]
 		    var minIndex = 0
 			for(var i=0; i<colCount; i++) {
-				if(colHeightArray[i] < minValue) {
-					minValue = ColHeightArray[i]
+				if(hArr[i] < minValue) {
+					minValue = hArr[i]
 					minIndex = i
 				}
 			}
-			//排版
 			$(this).css({
 				left: minIndex * imgWidth,
 				top: minValue
 			})
-			//console.log($(this).outerHeight(true))
-			colHeightArray[minIndex] += $(this).outerHeight(true)
-			//console.log(ColHeightArray)
+			console.log($(this).outerHeight(true))
+			hArr[minIndex] += $(this).outerHeight(true)
+			console.log(hArr)
 		})
-		//console.log($('.container img').eq(3).height())
+		console.log($('.container img').eq(3).height())
 	</script>
 </body>
 </html>
