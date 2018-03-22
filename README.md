@@ -6,3 +6,4 @@
 5、原生JS实现tab切换：[效果预览](https://5iris5.github.io/Demo/JQselector2.html) <br>
 6、动画队列（基础）：[效果预览](https://5iris5.github.io/Demo/JQanimateFixed.html) <br>
 7、自定义动画：[效果预览](https://5iris5.github.io/Demo/JQcustomAnimation.html) <br>
+8、jquery绑定事件：[效果预览](https://5iris5.github.io/Demo/JQevent.html)
