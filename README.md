@@ -1,8 +1,7 @@
-**一些小demo的实现**
-1、瀑布流布局：[效果预览](https://5iris5.github.io/Demo/waterfall.html)<br>
-2、懒加载：
-3、轮播：
-4、tab切换：
-5、
-6、
-7、
+**一些小demo的实现** <br>
+1、瀑布流布局：[效果预览](https://5iris5.github.io/Demo/waterfall.html) <br>
+2、懒加载：[效果预览](https://5iris5.github.io/Demo/lazyout.html) <br>
+3、轮播：[效果预览](https://5iris5.github.io/Demo/waterfall.html) <br>
+4、tab切换：[效果预览](https://5iris5.github.io/Demo/waterfall.html) <br>
+5、动画队列：[效果预览](https://5iris5.github.io/Demo/waterfall.html) <br>
+
