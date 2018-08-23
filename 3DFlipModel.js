@@ -1,5 +1,5 @@
 
-$$('.model .login').forEachfunction $(selector){
+$$('.model .login').forEachfunction (selector){
      return document.querySelector(selector)
 }
 //实现切换功能
